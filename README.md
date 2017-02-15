@@ -1,7 +1,7 @@
 # Readme - Gopher Artwork
 ----------------------
  
-Created by Ashley McNamara, based on original artwork from the [Renee French](http://reneefrench.blogspot.com/).
+Created by Ashley McNamara, based on original artwork from the amazing [Renee French](http://reneefrench.blogspot.com/).
 
 You can also find us on Twitter: 
 
