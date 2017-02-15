@@ -17,9 +17,9 @@ These files are ready to print and I suggest [Sticker Mule](https://www.stickerm
 
 ## Special shout-out to:
 
-* Renee French
-* Brian Ketelsen
-* Steve Francia
+* [Renee French](http://reneefrench.blogspot.com/)
+* [Brian Ketelsen](https://www.brianketelsen.com/)
+* [Steve Francia](http://spf13.com/)
 
 
 ## Software used
