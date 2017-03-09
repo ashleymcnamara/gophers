@@ -33,3 +33,4 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareA
 Please contact me if you wish to use any of this artwork for commercial purposes (anywhere revenue is obtained, including advertising).
 
 
+![preview](https://github.com/ashleymcnamara/gophers/blob/master/collage.jpg)
