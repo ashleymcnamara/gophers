@@ -20,6 +20,7 @@ These files are ready to print and I suggest [Sticker Mule](https://www.stickerm
 * [Renee French](http://reneefrench.blogspot.com/)
 * [Brian Ketelsen](https://www.brianketelsen.com/)
 * [Steve Francia](http://spf13.com/)
+* [Jay Fleckenstein](https://www.behance.net/jayfleck)
 
 
 ## Software used
