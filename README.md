@@ -1,36 +1,31 @@
-# Readme - Gopher Artwork
-----------------------
- 
-Based on original artwork from the amazing [Renee French](http://reneefrench.blogspot.com/).
+# README - Gopher Artwork
 
-You can also find us on Twitter: 
+### About the Artwork  
 
-[@ashleymcnamara](https://twitter.com/ashleymcnamara?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)
+This project is based on the original, iconic artwork by the talented [Renee French](http://reneefrench.blogspot.com/). The artwork celebrates the Go community and its creative spirit. 
 
-[@reneefrench](https://twitter.com/reneefrench?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor)  
+## How to Use the Gopher Artwork  
 
+1. **Download the Files**:  
+   Download and unzip the `gophers.zip` file to access the PNG artwork.  
 
-## How can you use these things?
+2. **Printing Recommendations**:  
+   These PNG files are print-ready! For high-quality, color-accurate stickers, we highly recommend [Sticker Ninja](https://stickerninja.com/).  
 
-Download and unzip the gophers.zip and in there you'll find the PNG files. 
-These files are ready to print and I suggest [Sticker Mule](https://www.stickermule.com/) for high-quality, color correct, stickers. 
+## Special Thanks  
 
-## Special shout-out to:
+A huge shout-out to the incredible contributors who made this possible:  
+- [Renee French](http://reneefrench.blogspot.com/) for the original Gopher artwork.  
+- [Steve Francia](http://spf13.com/) for his inspiration and dedication to the Go community.  
 
-* [Renee French](http://reneefrench.blogspot.com/)
-* [Brian Ketelsen](https://www.brianketelsen.com/)
-* [Steve Francia](http://spf13.com/)
+## License  
 
+This artwork is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).  
 
-## Software used
-The application used to create the Gopher Images is Adobe Illustrator.
-
-
-## Legal
-
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-
-This artwork can not be used for commercial purposes (anywhere revenue is obtained, including advertising).
+### Usage Guidelines:  
+- **Non-Commercial Use Only**: The artwork may not be used for any commercial purposes, including activities where revenue is generated (e.g., advertisements, product sales).  
+- **Share-Alike**: If you remix, transform, or build upon this work, you must distribute your contributions under the same license.  
 
 
-![preview](https://github.com/ashleymcnamara/gophers/blob/master/collage.jpg)
+![collage](https://github.com/user-attachments/assets/741be880-862a-4e02-97b4-cd9b82d06f67)
+
