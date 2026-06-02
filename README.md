@@ -1,3 +1,6 @@
+[![Link Checker](https://github.com/ashleymcnamara/gophers/actions/workflows/link-checker.yml/badge.svg)](https://github.com/ashleymcnamara/gophers/actions/workflows/link-checker.yml)
+[![Image Validation](https://github.com/ashleymcnamara/gophers/actions/workflows/image-validation.yml/badge.svg)](https://github.com/ashleymcnamara/gophers/actions/workflows/image-validation.yml)
+
 # README - Gopher Artwork
 
 ### About the Artwork  

@@ -1,0 +1,38 @@
+name: Image Validation
+
+on:
+  pull_request:
+    paths:
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.gif'
+      - 'scripts/validate-images.sh'
+      - '.github/workflows/image-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install validation tools
+        run: sudo apt-get update && sudo apt-get install -y pngcheck jpeginfo
+
+      - name: Validate images
+        run: |
+          chmod +x scripts/validate-images.sh
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Only check images added or modified in this PR
+            scripts/validate-images.sh --pr "${{ github.event.pull_request.base.sha }}"
+          else
+            # Full repo scan for manual triggers
+            scripts/validate-images.sh
+          fi
