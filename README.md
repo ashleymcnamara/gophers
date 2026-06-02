@@ -1,5 +1,8 @@
 # README - Gopher Artwork
 
+[![Link Checker](https://github.com/ashleymcnamara/gophers/actions/workflows/link-checker.yml/badge.svg)](https://github.com/ashleymcnamara/gophers/actions/workflows/link-checker.yml)
+[![Image Validation](https://github.com/ashleymcnamara/gophers/actions/workflows/image-validation.yml/badge.svg)](https://github.com/ashleymcnamara/gophers/actions/workflows/image-validation.yml)
+
 ### About the Artwork  
 
 This project is based on the original, iconic artwork by the talented [Renee French](http://reneefrench.blogspot.com/). The artwork celebrates the Go community and its creative spirit. 

@@ -1,0 +1,103 @@
+name: Image Validation
+
+on:
+  pull_request:
+    paths:
+      - '**.png'
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.gif'
+      - '**.svg'
+      - '**.webp'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-images:
+    name: Validate image files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: sudo apt-get install -y file
+
+      - name: Get changed image files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            **.png
+            **.jpg
+            **.jpeg
+            **.gif
+            **.svg
+            **.webp
+
+      - name: Validate images
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          WARN_SIZE=$((5 * 1024 * 1024))   # 5 MB
+          FAIL_SIZE=$((25 * 1024 * 1024))  # 25 MB
+
+          failed=0
+          warned=0
+
+          for img in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "Checking: $img"
+
+            # Skip deleted files
+            if [ ! -f "$img" ]; then
+              echo "  (deleted, skipping)"
+              continue
+            fi
+
+            # File size checks
+            size=$(stat -c%s "$img")
+            if [ "$size" -ge "$FAIL_SIZE" ]; then
+              echo "  ERROR: File exceeds 25 MB limit ($(( size / 1024 / 1024 )) MB) - $img"
+              failed=1
+            elif [ "$size" -ge "$WARN_SIZE" ]; then
+              echo "  WARNING: File is over 5 MB ($(( size / 1024 / 1024 )) MB) - $img"
+              warned=1
+            fi
+
+            # Detect actual file type
+            actual_type=$(file --brief --mime-type "$img")
+            ext="${img##*.}"
+            ext_lower=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+
+            case "$ext_lower" in
+              png)  expected="image/png" ;;
+              jpg|jpeg) expected="image/jpeg" ;;
+              gif)  expected="image/gif" ;;
+              svg)  expected="image/svg+xml" ;;
+              webp) expected="image/webp" ;;
+              *)    expected="unknown" ;;
+            esac
+
+            if [ "$expected" = "unknown" ]; then
+              echo "  WARNING: Unrecognized extension .$ext_lower for $img"
+              warned=1
+            elif [ "$actual_type" != "$expected" ]; then
+              echo "  ERROR: Extension mismatch for $img (extension says .$ext_lower, file is $actual_type)"
+              failed=1
+            else
+              echo "  OK: $actual_type, $(( size / 1024 )) KB"
+            fi
+          done
+
+          if [ "$warned" -eq 1 ]; then
+            echo ""
+            echo "One or more warnings were raised. Please review the output above."
+          fi
+
+          if [ "$failed" -eq 1 ]; then
+            echo ""
+            echo "One or more image validation checks failed."
+            exit 1
+          fi
