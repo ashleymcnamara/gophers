@@ -1,0 +1,140 @@
+# Issue Triage Automation
+#
+# Handles three things for incoming issues:
+# 1. Auto-labels based on keywords in the title/body
+# 2. Welcomes first-time contributors with a friendly comment
+# 3. Marks stale issues and auto-closes after inactivity (except gopher requests)
+
+name: Issue Triage
+
+on:
+  issues:
+    types: [opened]
+  # Stale check runs on a schedule
+  schedule:
+    - cron: "0 9 * * 1" # Every Monday at 9am UTC
+
+permissions:
+  issues: write
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Auto-label: scan title + body for keywords and apply matching labels
+  # ---------------------------------------------------------------------------
+  auto-label:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apply keyword-based labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const text = `${issue.title} ${issue.body || ''}`.toLowerCase();
+            const labelsToAdd = [];
+
+            // Gopher artwork requests
+            if (text.includes('request') || text.includes('new gopher')) {
+              labelsToAdd.push('gopher-request');
+            }
+
+            // Bug reports (broken links, missing files, etc.)
+            if (text.includes('bug') || text.includes('broken') || text.includes('404')) {
+              labelsToAdd.push('bug');
+            }
+
+            // Questions
+            if (text.includes('question') || text.includes('how')) {
+              labelsToAdd.push('question');
+            }
+
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labelsToAdd,
+              });
+              console.log(`Added labels: ${labelsToAdd.join(', ')}`);
+            } else {
+              console.log('No keyword matches — no labels added.');
+            }
+
+  # ---------------------------------------------------------------------------
+  # Welcome: greet first-time issue authors
+  # ---------------------------------------------------------------------------
+  welcome:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if first-time contributor
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const creator = context.payload.issue.user.login;
+
+            // Search for previous issues by this author in the repo
+            const { data } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              creator: creator,
+              state: 'all',
+            });
+
+            // If the only issue is the one that just triggered this, they're new
+            const isFirstIssue = data.length <= 1;
+            core.setOutput('is_first', isFirstIssue.toString());
+            console.log(`${creator} has ${data.length} issue(s) — first timer: ${isFirstIssue}`);
+
+      - name: Post welcome comment
+        if: steps.check.outputs.is_first == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const creator = context.payload.issue.user.login;
+            const body = [
+              `Hey @${creator}, welcome! 👋🐹`,
+              '',
+              'Thanks for opening your first issue on this repo. These gophers are a community labor of love, so we appreciate you being here.',
+              '',
+              'A few quick pointers:',
+              '- Check out the [README](https://github.com/ashleymcnamara/gophers/blob/master/README.md) for usage info and licensing.',
+              '- If you\'re requesting new artwork, sit tight — these take time but we try to get to them!',
+              '- All gopher artwork follows the [Creative Commons Attribution 4.0](https://github.com/ashleymcnamara/gophers/blob/master/LICENSE) license.',
+              '',
+              'Thanks for being part of the Go community! 💜',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: body,
+            });
+
+  # ---------------------------------------------------------------------------
+  # Stale: close issues that go quiet, but leave gopher requests alone
+  # ---------------------------------------------------------------------------
+  stale:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark and close stale issues
+        uses: actions/stale@v9
+        with:
+          days-before-stale: 60
+          days-before-close: 14
+          stale-issue-label: stale
+          stale-issue-message: >
+            This issue has been quiet for 60 days. It'll be closed in 14 days
+            if there's no further activity. If this is still relevant, drop a
+            comment and we'll keep it open. 🐹
+          close-issue-message: >
+            Closing this one out after 74 days with no activity. Feel free to
+            reopen if it's still needed — we're always around. ✌️
+          # Don't auto-close gopher requests — people come back to these
+          exempt-issue-labels: gopher-request
+          # Only handle issues, not PRs
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
