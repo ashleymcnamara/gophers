@@ -1,0 +1,46 @@
+name: Link Checker
+
+on:
+  # Weekly scan for link rot
+  schedule:
+    - cron: '0 9 * * 1' # Every Monday at 9am UTC
+  # Check PRs that touch markdown
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '.github/workflows/link-checker.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links with Lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --accept 100..=399
+            '**/*.md'
+          fail: true
+
+      - name: Create or update issue on broken links (scheduled runs only)
+        if: failure() && github.event_name == 'schedule'
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --accept 100..=399
+            '**/*.md'
+          fail: false
+          createIssue: true
+          issue-title: "🔗 Broken links found"
+          issue-body: "Lychee found broken links during the weekly scheduled check."
