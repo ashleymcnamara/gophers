@@ -28,7 +28,6 @@ jobs:
             --verbose
             --no-progress
             --accept 100..=399
-            --exclude-mail
             '**/*.md'
           fail: true
 
@@ -40,7 +39,6 @@ jobs:
             --verbose
             --no-progress
             --accept 100..=399
-            --exclude-mail
             '**/*.md'
           fail: false
           createIssue: true
