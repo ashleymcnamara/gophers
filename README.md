@@ -5,7 +5,7 @@
 
 ### About the Artwork  
 
-This project is based on the original, iconic artwork by the talented [Renee French](http://reneefrench.blogspot.com/). The artwork celebrates the Go community and its creative spirit. 
+This project is based on the original, iconic artwork by the talented [Renee French](https://reneefrench.blogspot.com/). The artwork celebrates the Go community and its creative spirit. 
 
 ## How to Use the Gopher Artwork  
 
@@ -18,12 +18,12 @@ This project is based on the original, iconic artwork by the talented [Renee Fre
 ## Special Thanks  
 
 A huge shout-out to the incredible contributors who made this possible:  
-- [Renee French](http://reneefrench.blogspot.com/) for the original Gopher artwork.  
-- [Steve Francia](http://spf13.com/) for his inspiration and dedication to the Go community.  
+- [Renee French](https://reneefrench.blogspot.com/) for the original Gopher artwork.  
+- [Steve Francia](https://spf13.com/) for his inspiration and dedication to the Go community.  
 
 ## License  
 
-This artwork is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).  
+This artwork is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).  
 
 ### Usage Guidelines:  
 - **Non-Commercial Use Only**: The artwork may not be used for any commercial purposes, including activities where revenue is generated (e.g., advertisements, product sales).  
