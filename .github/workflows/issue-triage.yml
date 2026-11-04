@@ -101,7 +101,7 @@ jobs:
               'A few quick pointers:',
               '- Check out the [README](https://github.com/ashleymcnamara/gophers/blob/master/README.md) for usage info and licensing.',
               '- If you\'re requesting new artwork, sit tight — these take time but we try to get to them!',
-              '- All gopher artwork follows the [Creative Commons Attribution 4.0](https://github.com/ashleymcnamara/gophers/blob/master/LICENSE) license.',
+              '- The README identifies this artwork as licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://github.com/ashleymcnamara/gophers/blob/master/LICENSE).',
               '',
               'Thanks for being part of the Go community! 💜',
             ].join('\n');
